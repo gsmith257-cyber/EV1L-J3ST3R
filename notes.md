@@ -289,7 +289,7 @@
   
 }
 </style>
-<title>Nmap Scan Report - Scanned at Sun Apr 17 20:52:27 2022</title>
+<title>Nmap Scan Report - Scanned at Sun Apr 17 21:35:54 2022</title>
 <script type="text/javascript">
      
       
@@ -335,7 +335,7 @@
 </head>
 <body>
 <a name="top"></a><div id="container">
-<h1>Nmap Scan Report - Scanned at Sun Apr 17 20:52:27 2022</h1>
+<h1>Nmap Scan Report - Scanned at Sun Apr 17 21:35:54 2022</h1>
 <ul id="menu">
 <li><a href="#scansummary">Scan Summary</a></li>
 <li> | <a href="#host_127_0_0_1" class="up">localhost (127.0.0.1)
@@ -345,10 +345,10 @@
 <a name="scansummary"></a><hr class="print_only">
 <h2>Scan Summary</h2>
 <p>
-      Nmap 7.91 was initiated at Sun Apr 17 20:52:27 2022 with these arguments:<br><i>nmap -sV -sC -T4 -oX temp.xml 127.0.0.1</i><br></p>
+      Nmap 7.91 was initiated at Sun Apr 17 21:35:54 2022 with these arguments:<br><i>nmap -sV -sC -T4 -oX temp.xml 127.0.0.1</i><br></p>
 <p>
     Verbosity: 0; Debug level 0</p>
-<p>Nmap done at Sun Apr 17 20:52:35 2022; 1 IP address (1 host up) scanned in 7.45 seconds</p>
+<p>Nmap done at Sun Apr 17 21:36:01 2022; 1 IP address (1 host up) scanned in 7.30 seconds</p>
 <hr class="print_only">
 <a name="host_127_0_0_1"></a><h2 class="up">127.0.0.1 / localhost<span class="print_only">(online)</span>
 </h2>
@@ -725,7 +725,7 @@
   
 }
 </style>
-<title>Nmap Scan Report - Scanned at Sun Apr 17 20:52:47 2022</title>
+<title>Nmap Scan Report - Scanned at Sun Apr 17 21:36:02 2022</title>
 <script type="text/javascript">
      
       
@@ -771,7 +771,7 @@
 </head>
 <body>
 <a name="top"></a><div id="container">
-<h1>Nmap Scan Report - Scanned at Sun Apr 17 20:52:47 2022</h1>
+<h1>Nmap Scan Report - Scanned at Sun Apr 17 21:36:02 2022</h1>
 <ul id="menu">
 <li><a href="#scansummary">Scan Summary</a></li>
 <li> | <a href="#host_127_0_0_1" class="up">localhost (127.0.0.1)
@@ -781,10 +781,10 @@
 <a name="scansummary"></a><hr class="print_only">
 <h2>Scan Summary</h2>
 <p>
-      Nmap 7.91 was initiated at Sun Apr 17 20:52:47 2022 with these arguments:<br><i>nmap --script ssh2-enum-algos.nse,ssh-hostkey.nse -p22 -oX temp.xml 127.0.0.1</i><br></p>
+      Nmap 7.91 was initiated at Sun Apr 17 21:36:02 2022 with these arguments:<br><i>nmap --script ssh2-enum-algos.nse,ssh-hostkey.nse -p22 -oX temp.xml 127.0.0.1</i><br></p>
 <p>
     Verbosity: 0; Debug level 0</p>
-<p>Nmap done at Sun Apr 17 20:52:48 2022; 1 IP address (1 host up) scanned in 0.90 seconds</p>
+<p>Nmap done at Sun Apr 17 21:36:03 2022; 1 IP address (1 host up) scanned in 0.76 seconds</p>
 <hr class="print_only">
 <a name="host_127_0_0_1"></a><h2 class="up">127.0.0.1 / localhost<span class="print_only">(online)</span>
 </h2>
@@ -892,9 +892,4 @@
 </body>
 </html>
 <br>
-##Exploits found: <br>
-###OpenSSH 2.3 < 7.7 - Username Enumeration<br>
-
-2018-08-21<br>
-
-https://www.exploit-db.com/exploits/45233<br>
+##Exploits found: 
