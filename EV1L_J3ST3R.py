@@ -1,7 +1,14 @@
 import os
+import re
 import requests
 import multiprocessing
 import subprocess
+import pycurl
+from bs4 import BeautifulSoup
+from googlesearch import search
+from sqlalchemy import except_all
+from modules import nmap
+import xml.etree.cElementTree as ET
 
 #notes:
 #1: user input
@@ -30,7 +37,7 @@ def main():
 ''')
     print("Created by: S1n1st3r")
 
-    activeIPs = []                                                             
+    activeIPs = []                                                   
     choice = input("Enter 1 for subnet scan or 2 for single IP: ")
 
     if choice == "1":
@@ -58,10 +65,11 @@ def main():
         notesFile.write(ip + "\n<br>")
     notesFile.close()
     #nmap scan all active IPs
-    nmapScan(activeIPs)
     #add nmap scans in md format to md report, create a section for each IP
+    listOfServices = nmapScan(activeIPs)
     #do exploit db search for all services and version numbers running on machines
     #add exploit-db results to report for each device
+    searchExploitDB(listOfServices)
     #attempt inital access with stuff like anonymous login to ftp or samba
 
 def ping_ip(ip):
@@ -114,6 +122,24 @@ def scanSubnet(subnet):
         list = list.append(ip)
     return list
 
+def getServiceListOutput():
+    servicesList = []
+    tree = ET.parse('temp.xml')
+    root = tree.getroot()
+    for item in list(root):
+        if item.tag == 'host':
+            for child in list(item):
+                if child.tag == 'ports':
+                    for port in list(child):
+                        if port.tag == 'port':
+                            for service in list(port):
+                                if service.tag == 'service':
+                                    try:
+                                        servicesList.append(service.attrib['product'] + ' ' + service.attrib['version'])
+                                    except KeyError:
+                                        pass
+    return servicesList 
+
 def nmapScan(ipList):
     #nmap scan all active IPs
     #add nmap scans in md format to md report, create a section for each IP
@@ -131,10 +157,51 @@ def nmapScan(ipList):
             for line in f:
                 notesFile.write(line)
         notesFile.close()
+        listOfServices = getServiceListOutput()
         #remove temp files
         os.remove("temp.xml")
         os.remove("temp.md")
     print("Nmap scan complete")
+    return listOfServices
+
+class ContentCallback:
+    def __init__(self):
+        self.contents = ''
+
+    def content_callback(self, buf):
+        self.contents = self.contents + str(buf)
+
+def searchExploitDB(services):
+    #do exploit db search for all services and version numbers running on machines
+    notesFile = open("notes.md", "a")
+    notesFile.write("<br>\n##Exploits found: ")
+    notesFile.close()
+    for service in services:
+        try:
+            query = service + ' ' + 'site:https://www.exploit-db.com'
+            for data in  search(query, tld="com", num=10, start=0, stop=25, pause=2):
+                if "https://www.exploit-db.com/exploits" in data:
+                    t = ContentCallback()
+                    curlObj = pycurl.Curl()
+                    curlObj.setopt(curlObj.URL, '{}'.format(data))
+                    curlObj.setopt(curlObj.WRITEFUNCTION, t.content_callback)
+                    curlObj.perform()
+                    curlObj.close()
+                    #url = data 
+                    soup = BeautifulSoup(t.contents,'lxml')
+                    desc = soup.find("meta", property="og:title")
+                    publish = soup.find("meta", property="article:published_time")
+                    #write results to md file
+                    notesFile = open("notes.md", "a")
+                    notesFile.write("<br>\n###" + desc.get('content') + "<br>\n")
+                    notesFile.write("\n" + publish.get('content') + "<br>\n")
+                    notesFile.write("\n" + data + "<br>\n")
+                    notesFile.close()
+
+        except:
+            print("Error connecting to ExploitDB")
+
+        
 
 
     
