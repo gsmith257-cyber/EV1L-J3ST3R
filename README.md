@@ -5,4 +5,4 @@ Meant to help easily go through Hack The Box machine and TryHackMe rooms and tak
 
 This tool will run through a subdomain or single IP and scan it with nmap, search for exploits of the services it finds, and print out all the results in a markdown file so you can easily read through.
 
-I am working on adding the automated exploitation of low hanging fruit.
+I am working on adding the automated exploitation of low hanging frui and perfecting the report format
