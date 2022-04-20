@@ -1,5 +1,7 @@
 # EV1L J3ST3R
-An automated scanning, note taking, and basic exploitation tool
+#An automated scanning, note taking, and basic exploitation tool
+
+##Not complete yet
 
 Meant to help easily go through Hack The Box machine and TryHackMe rooms and take good notes throughout the process.
 
