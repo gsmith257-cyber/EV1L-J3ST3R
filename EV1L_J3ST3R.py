@@ -187,7 +187,7 @@ def nmapScan(ipList):
     #add nmap scans in md format to md report, create a section for each IP
     print("Nmap scan started")
     for ip in ipList:
-        cmd = "nmap -sV -sC -T4 -oX temp.xml " + ip
+        cmd = "nmap -sV -sC -T4 -oX temp.xml " + ip + " 2>/dev/null"
         os.system(cmd)
         print("Nmap scan for " + ip + " complete")    
         #convert to markdown and add to notes file
@@ -345,7 +345,7 @@ def telnetCheck(ip):
 def snmpCheck(ip):
     #check if snmp is running on machine
     if ping_ip(ip):
-        cmd = "nmap --script snmp-netstat.nse,snmp-processes.nse,snmp-sysdescr.nse,snmp-win32-services.nse -p161 -oX temp.xml " + ip
+        cmd = "nmap --script snmp-netstat.nse,snmp-processes.nse,snmp-sysdescr.nse,snmp-win32-services.nse -p161 -oX temp.xml " + ip + " 2>/dev/null"
         os.system(cmd)
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
@@ -364,7 +364,7 @@ def snmpCheck(ip):
 def mysqlCheck(ip):
     #check if mysql is running on machine
     if ping_ip(ip):
-        cmd = "nmap --script mysql-enum.nse -p3306 -oX temp.xml " + ip
+        cmd = "nmap --script mysql-enum.nse -p3306 -oX temp.xml " + ip + " 2>/dev/null"
         os.system(cmd)
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
@@ -383,7 +383,7 @@ def mysqlCheck(ip):
 def icmpCheck(ip):
     #check if icmp is running on machine
     if ping_ip(ip):
-        cmd = "nmap --script icmp-echo.nse -p icmp -oX temp.xml " + ip
+        cmd = "nmap --script icmp-echo.nse -p icmp -oX temp.xml " + ip + " 2>/dev/null"
         os.system(cmd)
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
@@ -402,7 +402,7 @@ def icmpCheck(ip):
 def smtpCheck(ip):
     #check if smtp is running on machine
     if ping_ip(ip):
-        cmd = "nmap --script smtp-commands.nse,smtp-enum-users.nse,smtp-open-relay.nse -p25 -oX temp.xml " + ip
+        cmd = "nmap --script smtp-commands.nse,smtp-enum-users.nse,smtp-open-relay.nse -p25 -oX temp.xml " + ip + " 2>/dev/null"
         os.system(cmd)
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
@@ -421,7 +421,7 @@ def smtpCheck(ip):
 def dnsCheck(ip):
     #check if dns is running on machine
     if ping_ip(ip):
-        cmd = "nmap --script dns-recursion.nse,dns-zone-transfer.nse -p53 -oX temp.xml " + ip
+        cmd = "nmap --script dns-recursion.nse,dns-zone-transfer.nse -p53 -oX temp.xml " + ip + " 2>/dev/null"
         os.system(cmd)
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
@@ -440,7 +440,7 @@ def dnsCheck(ip):
 def pop3Check(ip):
     #check if pop3 is running on machine
     if ping_ip(ip):
-        cmd = "nmap --script pop3-capabilities.nse,pop3-enum-users.nse -p110 -oX temp.xml " + ip
+        cmd = "nmap --script pop3-capabilities.nse,pop3-enum-users.nse -p110 -oX temp.xml " + ip + " 2>/dev/null"
         os.system(cmd)
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
