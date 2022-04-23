@@ -8,7 +8,7 @@
 <html xmlns:fo="http://www.w3.org/1999/XSL/Format">
 <body>
 <a name="top"></a><div id="container">
-<h1>Nmap Scan Report - Scanned at Sat Apr 23 14:17:06 2022</h1>
+<h1>Nmap Scan Report - Scanned at Sat Apr 23 18:16:16 2022</h1>
 <ul id="menu">
 <li><a href="#scansummary">Scan Summary</a></li>
 <li> | <a href="#host_10_10_11_152" class="up">timelapse.htb (10.10.11.152)
@@ -18,10 +18,10 @@
 <a name="scansummary"></a><hr class="print_only">
 <h2>Scan Summary</h2>
 <p>
-      Nmap 7.91 was initiated at Sat Apr 23 14:17:06 2022 with these arguments:<br><i>nmap -sV -sC -T4 -oX temp.xml -Pn 10.10.11.152</i><br></p>
+      Nmap 7.91 was initiated at Sat Apr 23 18:16:16 2022 with these arguments:<br><i>nmap -sV -sC -T4 -oX temp.xml -Pn 10.10.11.152</i><br></p>
 <p>
     Verbosity: 0; Debug level 0</p>
-<p>Nmap done at Sat Apr 23 14:18:04 2022; 1 IP address (1 host up) scanned in 58.13 seconds</p>
+<p>Nmap done at Sat Apr 23 18:17:13 2022; 1 IP address (1 host up) scanned in 57.10 seconds</p>
 <hr class="print_only">
 <a name="host_10_10_11_152"></a><h2 class="up">10.10.11.152 / timelapse.htb<span class="print_only">(online)</span>
 </h2>
@@ -36,8 +36,8 @@
 <li>timelapse.htb (PTR)</li>
 </ul>
 <h3>Ports</h3>
-<p>The 990 ports scanned but not shown below are in state: <b>filtered</b></p>
-<ul><li><p>990 ports replied with: <b>no-responses</b></p></li></ul>
+<p>The 989 ports scanned but not shown below are in state: <b>filtered</b></p>
+<ul><li><p>989 ports replied with: <b>no-responses</b></p></li></ul>
 <table id="porttable_10.10.11.152" cellspacing="1">
 <tr class="head">
 <td colspan="2">Port</td>
@@ -70,7 +70,7 @@
 <td>syn-ack</td>
 <td>Microsoft Windows Kerberos </td>
 <td> </td>
-<td>server time: 2022-04-23 21:17:13Z </td>
+<td>server time: 2022-04-24 01:16:19Z </td>
 </tr>
 <tr class="open">
 <td>135</td>
@@ -136,7 +136,7 @@
 <td>636</td>
 <td>tcp</td>
 <td>open</td>
-<td>ldapssl </td>
+<td>tcpwrapped </td>
 <td>syn-ack</td>
 <td> </td>
 <td> </td>
@@ -152,6 +152,16 @@
 <td> </td>
 <td>Domain: timelapse.htb0., Site: Default-First-Site-Name </td>
 </tr>
+<tr class="open">
+<td>3269</td>
+<td>tcp</td>
+<td>open</td>
+<td>tcpwrapped </td>
+<td>syn-ack</td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
 </table>
 <h3>Host Script Output</h3>
 <table>
@@ -161,7 +171,7 @@
 </tr>
 <tr class="script">
 <td>clock-skew </td>
-<td><pre>7h59m53s </pre></td>
+<td><pre>7h59m51s </pre></td>
 </tr>
 <tr class="script">
 <td>smb2-security-mode </td>
@@ -172,7 +182,7 @@
 <tr class="script">
 <td>smb2-time </td>
 <td><pre>
-  date: 2022-04-23T21:17:19
+  date: 2022-04-24T01:16:27
   start_date: N/A </pre></td>
 </tr>
 </table>
@@ -194,21 +204,6 @@
 </div>
 </body>
 </html>
-
-
-<h2>HTTP enumeration: </h2><br>
-<?xml version="1.0" ?>
-<!DOCTYPE niktoscan SYSTEM "/var/lib/nikto/docs/nikto.dtd">
-<niktoscan>
-<item id="000029" osvdbid="0" osvdblink="http://osvdb.org/0" method="">
-<description><![CDATA[No web server found on 10.10.11.152:80]]></description>
-<uri><![CDATA[/]]></uri>
-<namelink><![CDATA[https://10.10.11.152:80/]]></namelink>
-<iplink><![CDATA[https://10.10.11.152:80/]]></iplink>
-</item>
-
-
-</niktoscan>
 <br>
 ##Exploits found: <br>
 <h3>Microsoft Windows - 'RPC DCOM' Remote (Universal)</h3><br>
