@@ -71,7 +71,7 @@ def main():
     #attempt inital access with stuff like anonymous login to ftp or samba
     for service in listOfServices:
         #if listOfServices contains smb, try smb login
-        if "smb" in service or "SMB" in service or 139 in listOfPorts or 445 in listOfPorts:
+        if "smb" in service or "SMB" in service or '139' in listOfPorts or '445' in listOfPorts:
             for ip in activeIPs:
                 SAMBAcheck(ip)
         #if listOfServices contains ftp, try ftp login
@@ -79,7 +79,7 @@ def main():
             for ip in activeIPs:
                 ftpCheck(ip)
         #if listOfServices contains http, try http check
-        if "http" in service or "HTTP" in service or 80 in listOfPorts or 443 in listOfPorts or 8080 in listOfPorts:
+        if "http" in service or "HTTP" in service or '80' in listOfPorts or '443' in listOfPorts or '8080' in listOfPorts:
             for ip in activeIPs:
                 httpCheck(ip, listOfPorts)
         #if listOfServices contains ssh, try ssh check
@@ -233,7 +233,7 @@ class ContentCallback:
 def searchExploitDB(services):
     #do exploit db search for all services and version numbers running on machines
     notesFile = open("notes.md", "a")
-    notesFile.write("<br>\n##Exploits found: ")
+    notesFile.write("<br>\n<h2>Exploits found: </h2>")
     notesFile.close()
     for service in services:
         try:
