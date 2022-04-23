@@ -1,6 +1,6 @@
 # EV1L J3ST3R
-<h2>An automated scanning, enumeration, and note taking tool</h2>
 ![](https://github.com/gsmith257-cyber/EV1L-J3ST3R/blob/main/skullJester.jpg)
+<h2>An automated scanning, enumeration, and note taking tool</h2>
 
 Meant to help easily go through Hack The Box machine and TryHackMe rooms and take good notes throughout the process.
 
