@@ -1,3 +1,5 @@
 beautifulsoup4
 googlesearch-python
 SQLAlchemy
+google
+google-api-python-client

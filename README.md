@@ -12,6 +12,7 @@ This tool will run through a subdomain or single IP and scan it with nmap, searc
 git clone https://github.com/gsmith257-cyber/EV1L-J3ST3R.git
 cd EV1L-J3ST3R
 sudo apt-get install nikto
+sudo apt-get install xsltproc
 pip install -r requirements.txt
 python3 EV1L_J3ST3R.py
 ```

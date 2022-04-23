@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 from googlesearch import search
 import xml.etree.cElementTree as ET
 import ipaddress
+from pathlib import Path
 
 #todo
 #1: make it so SAMBA scan will run based on port numbers open, 139, 445
@@ -200,7 +201,10 @@ def getPorts():
 
 def cleanMDfile():
     datafile = []
-    file = open("temp.md", 'r')
+    # if the temp.md file doesn't exist, create an empty file to avoid errors
+    tmp_file = Path('temp.md')
+    tmp_file.touch(exist_ok=True)
+    file = open('temp.md', 'r')
     # delete matching content and 326 lines after
     currentLine = 0
     content = "<head>"
@@ -214,7 +218,7 @@ def cleanMDfile():
         else:
             currentLine += 1
     file.close()
-    file2 = open("temp.md", 'w')
+    file2 = open('temp.md', 'w')
     file2.writelines(datafile)
     file2.close()
         
@@ -257,7 +261,7 @@ def searchExploitDB(services):
     for service in services:
         try:
             query = service + ' ' + 'site:https://www.exploit-db.com'
-            for data in  search(query, tld="com", num=10, start=0, stop=25, pause=2):
+            for data in search(query, tld='com', num=10, start=0, stop=25, pause=2):
                 if "https://www.exploit-db.com/exploits" in data:
                     t = ContentCallback()
                     curlObj = pycurl.Curl()
@@ -276,8 +280,9 @@ def searchExploitDB(services):
                     notesFile.write("\n" + data + "<br>\n")
                     notesFile.close()
 
-        except:
+        except Exception as e:
             print("Error connecting to ExploitDB")
+            # print(e)
     
 def SAMBAcheck(ip):
     #check if samba is running on machine
