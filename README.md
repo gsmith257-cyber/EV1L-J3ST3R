@@ -1,6 +1,6 @@
 # EV1L J3ST3R
-![](https://github.com/gsmith257-cyber/EV1L-J3ST3R/blob/main/skullJester.jpg)
 <h2>An automated scanning, enumeration, and note taking tool</h2>
+![](https://github.com/gsmith257-cyber/EV1L-J3ST3R/blob/main/skullJester.jpg)
 
 Meant to help easily go through Hack The Box machine and TryHackMe rooms and take good notes throughout the process.
 
@@ -14,6 +14,6 @@ cd EV1L-J3ST3R
 pip install -r requirements.txt
 python3 EV1L_J3ST3R.py
 ```
-
+<div>
 
 I am working on adding more features and simplifying some of the code so create a pull request if you have any ideas.
