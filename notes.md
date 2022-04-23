@@ -8,7 +8,7 @@
 <html xmlns:fo="http://www.w3.org/1999/XSL/Format">
 <body>
 <a name="top"></a><div id="container">
-<h1>Nmap Scan Report - Scanned at Sat Apr 23 18:29:31 2022</h1>
+<h1>Nmap Scan Report - Scanned at Sat Apr 23 18:40:06 2022</h1>
 <ul id="menu">
 <li><a href="#scansummary">Scan Summary</a></li>
 <li> | <a href="#host_10_10_11_152" class="up">timelapse.htb (10.10.11.152)
@@ -18,10 +18,10 @@
 <a name="scansummary"></a><hr class="print_only">
 <h2>Scan Summary</h2>
 <p>
-      Nmap 7.91 was initiated at Sat Apr 23 18:29:31 2022 with these arguments:<br><i>nmap -sV -sC -T4 -oX temp.xml -Pn 10.10.11.152</i><br></p>
+      Nmap 7.91 was initiated at Sat Apr 23 18:40:06 2022 with these arguments:<br><i>nmap -sV -sC -T4 -oX temp.xml -Pn 10.10.11.152</i><br></p>
 <p>
     Verbosity: 0; Debug level 0</p>
-<p>Nmap done at Sat Apr 23 18:30:27 2022; 1 IP address (1 host up) scanned in 56.71 seconds</p>
+<p>Nmap done at Sat Apr 23 18:41:12 2022; 1 IP address (1 host up) scanned in 65.63 seconds</p>
 <hr class="print_only">
 <a name="host_10_10_11_152"></a><h2 class="up">10.10.11.152 / timelapse.htb<span class="print_only">(online)</span>
 </h2>
@@ -70,7 +70,7 @@
 <td>syn-ack</td>
 <td>Microsoft Windows Kerberos </td>
 <td> </td>
-<td>server time: 2022-04-24 01:29:34Z </td>
+<td>server time: 2022-04-24 01:40:18Z </td>
 </tr>
 <tr class="open">
 <td>135</td>
@@ -171,7 +171,7 @@
 </tr>
 <tr class="script">
 <td>clock-skew </td>
-<td><pre>7h59m50s </pre></td>
+<td><pre>7h59m51s </pre></td>
 </tr>
 <tr class="script">
 <td>smb2-security-mode </td>
@@ -182,7 +182,7 @@
 <tr class="script">
 <td>smb2-time </td>
 <td><pre>
-  date: 2022-04-24T01:29:38
+  date: 2022-04-24T01:40:23
   start_date: N/A </pre></td>
 </tr>
 </table>
@@ -210,7 +210,7 @@
 <html xmlns:fo="http://www.w3.org/1999/XSL/Format">
 <body>
 <a name="top"></a><div id="container">
-<h1>Nmap Scan Report - Scanned at Sat Apr 23 18:30:29 2022</h1>
+<h1>Nmap Scan Report - Scanned at Sat Apr 23 18:41:13 2022</h1>
 <ul id="menu">
 <li><a href="#scansummary">Scan Summary</a></li>
 <li> | <a href="#host_10_10_11_152" class="up">timelapse.htb (10.10.11.152)
@@ -220,10 +220,10 @@
 <a name="scansummary"></a><hr class="print_only">
 <h2>Scan Summary</h2>
 <p>
-      Nmap 7.91 was initiated at Sat Apr 23 18:30:29 2022 with these arguments:<br><i>nmap --script smb-enum-shares.nse,smb-os-discovery.nse,smb-vuln-conficker.nse,smb-vuln-cve2009-3103.nse,smb-vuln-cve-2017-7494.nse,smb-vuln-ms06-025.nse,smb-vuln-ms07-029.nse,smb-vuln-ms08-067.nse,smb-vuln-ms10-054.nse,smb-vuln-ms10-061.nse,smb-vuln-ms17-010.nse,smb-vuln-regsvc-dos.nse,smb-vuln-webexec.nse -p445 -oX temp.xml -Pn 10.10.11.152</i><br></p>
+      Nmap 7.91 was initiated at Sat Apr 23 18:41:13 2022 with these arguments:<br><i>nmap --script smb-enum-shares.nse,smb-os-discovery.nse,smb-vuln-conficker.nse,smb-vuln-cve2009-3103.nse,smb-vuln-cve-2017-7494.nse,smb-vuln-ms06-025.nse,smb-vuln-ms07-029.nse,smb-vuln-ms08-067.nse,smb-vuln-ms10-054.nse,smb-vuln-ms10-061.nse,smb-vuln-ms17-010.nse,smb-vuln-regsvc-dos.nse,smb-vuln-webexec.nse -p445 -oX temp.xml -Pn 10.10.11.152</i><br></p>
 <p>
     Verbosity: 0; Debug level 0</p>
-<p>Nmap done at Sat Apr 23 18:30:45 2022; 1 IP address (1 host up) scanned in 16.61 seconds</p>
+<p>Nmap done at Sat Apr 23 18:41:29 2022; 1 IP address (1 host up) scanned in 16.19 seconds</p>
 <hr class="print_only">
 <a name="host_10_10_11_152"></a><h2 class="up">10.10.11.152 / timelapse.htb<span class="print_only">(online)</span>
 </h2>
@@ -385,3 +385,9 @@ https://www.exploit-db.com/exploits/13154<br>
 2002-07-28<br>
 
 https://www.exploit-db.com/exploits/42870<br>
+<br>
+<h3>[eZine] Zero For 0wned (ZFO) 5</h3><br>
+
+2009-07-30<br>
+
+https://www.exploit-db.com/exploits/12892<br>
