@@ -55,11 +55,11 @@ def main():
         return
     #create md file for report
     notesFile = open("notes.md", "w")
-    notesFile.write("#Notes for " + userInput + " scan\n<br>")
+    notesFile.write("<h1>Notes for " + userInput + " scan </h1>\n<br>")
     notesFile.close()
     #add active ones to section of report
     notesFile = open("notes.md", "a")
-    notesFile.write("\n##Active IPs\n<br>")
+    notesFile.write("\n<h2>Active IPs</h2>\n<br>")
     for ip in activeIPs:
         notesFile.write(ip + "\n<br>")
     notesFile.close()
@@ -182,7 +182,28 @@ def getServiceListOutput():
                                         servicesList.append(service.attrib['product'] + ' ' + service.attrib['version'])
                                     except KeyError:
                                         pass
-    return servicesList 
+    return servicesList
+
+def cleanMDfile():
+    datafile = []
+    file = open("temp.md", 'r')
+    # delete matching content and 326 lines after
+    currentLine = 0
+    content = "<head>"
+    datafile = file.readlines()
+    for line in datafile:
+        if content in line:
+            lines = currentLine
+            while currentLine < (lines + 327):
+                datafile[currentLine] = ""
+                currentLine += 1
+        else:
+            currentLine += 1
+    file.close()
+    file2 = open("temp.md", 'w')
+    file2.writelines(datafile)
+    file2.close()
+        
 
 def nmapScan(ipList):
     #nmap scan all active IPs
@@ -195,12 +216,12 @@ def nmapScan(ipList):
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
         os.system(cmd)
+        cleanMDfile()
         notesFile = open("notes.md", "a")
-        notesFile.write("\n##" + ip + "\n")
+        notesFile.write("\n<h2>" + ip + "</h2>\n")
         with open("temp.md") as f:
             for line in f:
                 notesFile.write(line)
-        notesFile.close()
         listOfServices = getServiceListOutput()
         #remove temp files
         os.remove("temp.xml")
@@ -237,7 +258,7 @@ def searchExploitDB(services):
                     publish = soup.find("meta", property="article:published_time")
                     #write results to md file
                     notesFile = open("notes.md", "a")
-                    notesFile.write("<br>\n###" + desc.get('content') + "<br>\n")
+                    notesFile.write("<br>\n<h3>" + desc.get('content') + "</h3><br>\n")
                     notesFile.write("\n" + publish.get('content') + "<br>\n")
                     notesFile.write("\n" + data + "<br>\n")
                     notesFile.close()
@@ -253,9 +274,10 @@ def SAMBAcheck(ip):
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
         os.system(cmd)
+        cleanMDfile()
         notesFile = open("notes.md", "a")
         with open("temp.md") as f:
-            notesFile.write("\n##Samba enumeration: <br>\n")
+            notesFile.write("\n<h2>Samba enumeration: </h2><br>\n")
             for line in f:
                 notesFile.write(line)
         notesFile.close()
@@ -271,9 +293,10 @@ def ftpCheck(ip):
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
         os.system(cmd)
+        cleanMDfile()
         notesFile = open("notes.md", "a")
         with open("temp.md") as f:
-            notesFile.write("\n##FTP enumeration: <br>\n")
+            notesFile.write("\n<h2>FTP enumeration: </h2><br>\n")
             for line in f:
                 notesFile.write(line)
         notesFile.close()
@@ -287,14 +310,22 @@ def httpCheck(ip):
         cmd = "nikto -output temp.xml --host http://" + ip
         os.system(cmd)
         #convert to markdown and add to notes file
-        notesFile = open("notes.md", "a")
-        notesFile.write("\n##HTTP enumeration: <br>\n")
+        notesFile = open("temp.md", "w")
+        notesFile.write("\n<h2>HTTP enumeration: </h2><br>\n")
         with open("temp.xml") as f:
+            for line in f:
+                notesFile.write(line)
+        notesFile.close()
+        cleanMDfile()
+        notesFile = open("notes.md", "a")
+        with open("temp.md") as f:
+            notesFile.write("\n")
             for line in f:
                 notesFile.write(line)
         notesFile.close()
         #remove temp files
         os.remove("temp.xml")
+        os.remove("temp.md")
 
 def sshCheck(ip):
     #check if ssh is running on machine
@@ -304,9 +335,10 @@ def sshCheck(ip):
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
         os.system(cmd)
+        cleanMDfile()
         notesFile = open("notes.md", "a")
         with open("temp.md") as f:
-            notesFile.write("\n##SSH enumeration: <br>\n")
+            notesFile.write("\n<h2>SSH enumeration: </h2><br>\n")
             for line in f:
                 notesFile.write(line)
         notesFile.close()
@@ -322,9 +354,10 @@ def telnetCheck(ip):
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
         os.system(cmd)
+        cleanMDfile()
         notesFile = open("notes.md", "a")
         with open("temp.md") as f:
-            notesFile.write("\n##Telnet enumeration: <br>\n")
+            notesFile.write("\n<h2>Telnet enumeration: </h2><br>\n")
             for line in f:
                 notesFile.write(line)
         notesFile.close()
@@ -340,9 +373,10 @@ def snmpCheck(ip):
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
         os.system(cmd)
+        cleanMDfile()
         notesFile = open("notes.md", "a")
         with open("temp.md") as f:
-            notesFile.write("\n##SNMP enumeration: <br>\n")
+            notesFile.write("\n<h2>SNMP enumeration: </h2><br>\n")
             for line in f:
                 notesFile.write(line)
         notesFile.close()
@@ -358,9 +392,10 @@ def mysqlCheck(ip):
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
         os.system(cmd)
+        cleanMDfile()
         notesFile = open("notes.md", "a")
         with open("temp.md") as f:
-            notesFile.write("\n##MySQL enumeration: <br>\n")
+            notesFile.write("\n<h2>MySQL enumeration: </h2><br>\n")
             for line in f:
                 notesFile.write(line)
         notesFile.close()
@@ -376,9 +411,10 @@ def icmpCheck(ip):
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
         os.system(cmd)
+        cleanMDfile()
         notesFile = open("notes.md", "a")
         with open("temp.md") as f:
-            notesFile.write("\n##ICMP enumeration: <br>\n")
+            notesFile.write("\n<h2>ICMP enumeration: </h2><br>\n")
             for line in f:
                 notesFile.write(line)
         notesFile.close()
@@ -394,9 +430,10 @@ def smtpCheck(ip):
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
         os.system(cmd)
+        cleanMDfile()
         notesFile = open("notes.md", "a")
         with open("temp.md") as f:
-            notesFile.write("\n##SMTP enumeration: <br>\n")
+            notesFile.write("\n<h2>SMTP enumeration: </h2><br>\n")
             for line in f:
                 notesFile.write(line)
         notesFile.close()
@@ -412,9 +449,10 @@ def dnsCheck(ip):
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
         os.system(cmd)
+        cleanMDfile()
         notesFile = open("notes.md", "a")
         with open("temp.md") as f:
-            notesFile.write("\n##DNS enumeration: <br>\n")
+            notesFile.write("\n<h2>DNS enumeration: </h2><br>\n")
             for line in f:
                 notesFile.write(line)
         notesFile.close()
@@ -430,9 +468,10 @@ def pop3Check(ip):
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
         os.system(cmd)
+        cleanMDfile()
         notesFile = open("notes.md", "a")
         with open("temp.md") as f:
-            notesFile.write("\n##POP3 enumeration: <br>\n")
+            notesFile.write("\n<h2>POP3 enumeration: </h2><br>\n")
             for line in f:
                 notesFile.write(line)
         notesFile.close()
