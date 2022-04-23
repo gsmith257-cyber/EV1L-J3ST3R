@@ -8,7 +8,7 @@
 <html xmlns:fo="http://www.w3.org/1999/XSL/Format">
 <body>
 <a name="top"></a><div id="container">
-<h1>Nmap Scan Report - Scanned at Sat Apr 23 18:16:16 2022</h1>
+<h1>Nmap Scan Report - Scanned at Sat Apr 23 18:20:52 2022</h1>
 <ul id="menu">
 <li><a href="#scansummary">Scan Summary</a></li>
 <li> | <a href="#host_10_10_11_152" class="up">timelapse.htb (10.10.11.152)
@@ -18,10 +18,10 @@
 <a name="scansummary"></a><hr class="print_only">
 <h2>Scan Summary</h2>
 <p>
-      Nmap 7.91 was initiated at Sat Apr 23 18:16:16 2022 with these arguments:<br><i>nmap -sV -sC -T4 -oX temp.xml -Pn 10.10.11.152</i><br></p>
+      Nmap 7.91 was initiated at Sat Apr 23 18:20:52 2022 with these arguments:<br><i>nmap -sV -sC -T4 -oX temp.xml -Pn 10.10.11.152</i><br></p>
 <p>
     Verbosity: 0; Debug level 0</p>
-<p>Nmap done at Sat Apr 23 18:17:13 2022; 1 IP address (1 host up) scanned in 57.10 seconds</p>
+<p>Nmap done at Sat Apr 23 18:21:52 2022; 1 IP address (1 host up) scanned in 59.81 seconds</p>
 <hr class="print_only">
 <a name="host_10_10_11_152"></a><h2 class="up">10.10.11.152 / timelapse.htb<span class="print_only">(online)</span>
 </h2>
@@ -70,7 +70,7 @@
 <td>syn-ack</td>
 <td>Microsoft Windows Kerberos </td>
 <td> </td>
-<td>server time: 2022-04-24 01:16:19Z </td>
+<td>server time: 2022-04-24 01:20:58Z </td>
 </tr>
 <tr class="open">
 <td>135</td>
@@ -182,7 +182,7 @@
 <tr class="script">
 <td>smb2-time </td>
 <td><pre>
-  date: 2022-04-24T01:16:27
+  date: 2022-04-24T01:21:05
   start_date: N/A </pre></td>
 </tr>
 </table>
@@ -205,7 +205,7 @@
 </body>
 </html>
 <br>
-##Exploits found: <br>
+## Exploits found: <br>
 <h3>Microsoft Windows - 'RPC DCOM' Remote (Universal)</h3><br>
 
 2003-08-07<br>
