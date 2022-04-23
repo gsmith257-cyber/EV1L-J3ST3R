@@ -128,42 +128,19 @@ def ping_ip(ip):
     except Exception:
             return False
 
-def ping(ip, results):
-    #ping IPs
-    DEVNULL = open(os.devnull, 'w')
-    while True:
-        if ip is None: break
-        try:
-            subprocess.check_call(['ping', '-c', '1', ip], stdout=DEVNULL)
-            results.append(ip)
-        except:
-            pass
-
 def scanSubnet(subnet):
+    DEVNULL = open(os.devnull,'w')
     list = []
-    pool_size = 255
-    jobs = multiprocessing.Queue()
-    results = multiprocessing.Queue()
-    #scan subnet
-    actives = []
-    #get active IPs
-    pool = [ multiprocessing.Process(target=ping, args=(jobs,results))
-             for i in range(pool_size) ]
-    for p in pool:
-        p.start()
-
-    for i in range(1,255):
-        jobs.put('192.168.1.{0}'.format(i))
-
-    for p in pool:
-        jobs.put(None)
-
-    for p in pool:
-        p.join()
-
-    while not results.empty():
-        ip = results.get()
-        list = list.append(ip)
+    for ping in range(1,255):
+        address = subnet[:-1] + str(ping)
+        res = subprocess.call(['ping', '-c', '1', address], stdout=DEVNULL)
+        if res == 0:
+            print("ping to", address, "OK")
+            list.append(address)
+        elif res == 2:
+            print("no response from", address)
+        else:
+            print("ping to", address, "failed!")
     return list
 
 def getServiceListOutput():
