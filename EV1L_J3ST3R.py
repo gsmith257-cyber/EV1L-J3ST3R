@@ -4,6 +4,7 @@ import pycurl
 from bs4 import BeautifulSoup
 from googlesearch import search
 import xml.etree.cElementTree as ET
+import ipaddress
 
 #todo
 #1: make it so SAMBA scan will run based on port numbers open, 139, 445
@@ -41,18 +42,27 @@ def main():
 
     if choice == "1":
         userInput = input("Enter subnet to scan, exclude the /24: ")
-        activeIPs = scanSubnet(userInput)
+        if ip_is_valid(userInput):
+            activeIPs = scanSubnet(userInput)
+        else:
+            print("Invalid IP address!")
+            quit()
     elif choice == "2":
         userInput = input("Enter IP to scan: ")
-        if ping_ip(userInput):
-            print("IP is active")
-            activeIPs = [userInput]
+        if ip_is_valid(userInput):
+            if ping_ip(userInput):
+                print("IP is active")
+                activeIPs = [userInput]
+            else:
+                print("IP is not active")
+                quit()
         else:
-            print("IP is not active")
+            print("Invalid IP address!")
             quit()
     else:
         print("Invalid input")
         return
+
     #create md file for report
     notesFile = open("notes.md", "w")
     notesFile.write("<h1>Notes for " + userInput + " scan </h1>\n<br>")
@@ -117,6 +127,15 @@ def main():
     #do exploit db search for all services and version numbers running on machines
     #add exploit-db results to report for each device
     searchExploitDB(listOfServices)
+
+# this function will validate a given IP address
+# and return True or False based on the validation result
+def ip_is_valid(ip):
+    try:
+        ipaddress.IPv4Network(ip)
+        return True
+    except Exception as e:
+        return False
 
 def ping_ip(ip):
     #ping IP
