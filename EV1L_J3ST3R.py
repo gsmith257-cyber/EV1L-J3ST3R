@@ -115,6 +115,7 @@ def main():
     #do exploit db search for all services and version numbers running on machines
     #add exploit-db results to report for each device
     searchExploitDB(listOfServices)
+    Print("Successful")
 
 def ping_ip(ip):
     #ping IP
@@ -187,7 +188,7 @@ def nmapScan(ipList):
     #add nmap scans in md format to md report, create a section for each IP
     print("Nmap scan started")
     for ip in ipList:
-        cmd = "nmap -sV -sC -T4 -oX temp.xml " + ip + " 2>/dev/null"
+        cmd = "nmap -sV -sC -T4 -oX temp.xml " + ip + " -Pn > /dev/null"
         os.system(cmd)
         print("Nmap scan for " + ip + " complete")    
         #convert to markdown and add to notes file
@@ -246,7 +247,7 @@ def searchExploitDB(services):
 def SAMBAcheck(ip):
     #check if samba is running on machine
     if ping_ip(ip):
-        cmd = "nmap --script smb-enum-shares.nse,smb-os-discovery.nse,smb-vuln-conficker.nse,smb-vuln-cve2009-3103.nse,smb-vuln-cve-2017-7494.nse,smb-vuln-ms06-025.nse,smb-vuln-ms07-029.nse,smb-vuln-ms08-067.nse,smb-vuln-ms10-054.nse,smb-vuln-ms10-061.nse,smb-vuln-ms17-010.nse,smb-vuln-regsvc-dos.nse,smb-vuln-webexec.nse -p445 -oX temp.xml " + ip
+        cmd = "nmap --script smb-enum-shares.nse,smb-os-discovery.nse,smb-vuln-conficker.nse,smb-vuln-cve2009-3103.nse,smb-vuln-cve-2017-7494.nse,smb-vuln-ms06-025.nse,smb-vuln-ms07-029.nse,smb-vuln-ms08-067.nse,smb-vuln-ms10-054.nse,smb-vuln-ms10-061.nse,smb-vuln-ms17-010.nse,smb-vuln-regsvc-dos.nse,smb-vuln-webexec.nse -p445 -oX temp.xml " + ip + " -Pn > /dev/null"
         os.system(cmd)
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
@@ -265,7 +266,7 @@ def SAMBAcheck(ip):
 def ftpCheck(ip):
     #check if ftp is running on machine
     if ping_ip(ip):
-        cmd = "nmap --script ftp-anon.nse,ftp-banner.nse,ftp-proftpd-backdoor.nse,ftp-vsftpd-backdoor.nse -p21 -oX temp.xml " + ip
+        cmd = "nmap --script ftp-anon.nse,ftp-banner.nse,ftp-proftpd-backdoor.nse,ftp-vsftpd-backdoor.nse -p21 -oX temp.xml " + ip + " -Pn > /dev/null"
         os.system(cmd)
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
@@ -284,7 +285,7 @@ def ftpCheck(ip):
 def httpCheck(ip):
     #check if http is running on machine
     if ping_ip(ip):
-        cmd = "nikto -output temp.xml --host http://" + ip
+        cmd = "nikto -output temp.xml --host http://" + ip + " > /dev/null"
         os.system(cmd)
         #convert to markdown and add to notes file
         notesFile = open("temp.md", "w")
@@ -307,7 +308,7 @@ def httpCheck(ip):
 def sshCheck(ip):
     #check if ssh is running on machine
     if ping_ip(ip):
-        cmd = "nmap --script ssh2-enum-algos.nse,ssh-hostkey.nse -p22 -oX temp.xml " + ip
+        cmd = "nmap --script ssh2-enum-algos.nse,ssh-hostkey.nse -p22 -oX temp.xml " + ip + " -Pn > /dev/null"
         os.system(cmd)
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
@@ -326,7 +327,7 @@ def sshCheck(ip):
 def telnetCheck(ip):
     #check if telnet is running on machine
     if ping_ip(ip):
-        cmd = "nmap --script telnet-encryption.nse -p23 -oX temp.xml " + ip
+        cmd = "nmap --script telnet-encryption.nse -p23 -oX temp.xml " + ip + " -Pn > /dev/null"
         os.system(cmd)
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
@@ -345,7 +346,7 @@ def telnetCheck(ip):
 def snmpCheck(ip):
     #check if snmp is running on machine
     if ping_ip(ip):
-        cmd = "nmap --script snmp-netstat.nse,snmp-processes.nse,snmp-sysdescr.nse,snmp-win32-services.nse -p161 -oX temp.xml " + ip + " 2>/dev/null"
+        cmd = "nmap --script snmp-netstat.nse,snmp-processes.nse,snmp-sysdescr.nse,snmp-win32-services.nse -p161 -oX temp.xml " + ip + " -Pn > /dev/null"
         os.system(cmd)
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
@@ -364,7 +365,7 @@ def snmpCheck(ip):
 def mysqlCheck(ip):
     #check if mysql is running on machine
     if ping_ip(ip):
-        cmd = "nmap --script mysql-enum.nse -p3306 -oX temp.xml " + ip + " 2>/dev/null"
+        cmd = "nmap --script mysql-enum.nse -p3306 -oX temp.xml " + ip + " -Pn > /dev/null"
         os.system(cmd)
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
@@ -383,7 +384,7 @@ def mysqlCheck(ip):
 def icmpCheck(ip):
     #check if icmp is running on machine
     if ping_ip(ip):
-        cmd = "nmap --script icmp-echo.nse -p icmp -oX temp.xml " + ip + " 2>/dev/null"
+        cmd = "nmap --script icmp-echo.nse -p icmp -oX temp.xml " + ip + " -Pn > /dev/null"
         os.system(cmd)
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
@@ -402,7 +403,7 @@ def icmpCheck(ip):
 def smtpCheck(ip):
     #check if smtp is running on machine
     if ping_ip(ip):
-        cmd = "nmap --script smtp-commands.nse,smtp-enum-users.nse,smtp-open-relay.nse -p25 -oX temp.xml " + ip + " 2>/dev/null"
+        cmd = "nmap --script smtp-commands.nse,smtp-enum-users.nse,smtp-open-relay.nse -p25 -oX temp.xml " + ip + " -Pn > /dev/null"
         os.system(cmd)
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
@@ -421,7 +422,7 @@ def smtpCheck(ip):
 def dnsCheck(ip):
     #check if dns is running on machine
     if ping_ip(ip):
-        cmd = "nmap --script dns-recursion.nse,dns-zone-transfer.nse -p53 -oX temp.xml " + ip + " 2>/dev/null"
+        cmd = "nmap --script dns-recursion.nse,dns-zone-transfer.nse -p53 -oX temp.xml " + ip + " -Pn > /dev/null"
         os.system(cmd)
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
@@ -440,7 +441,7 @@ def dnsCheck(ip):
 def pop3Check(ip):
     #check if pop3 is running on machine
     if ping_ip(ip):
-        cmd = "nmap --script pop3-capabilities.nse,pop3-enum-users.nse -p110 -oX temp.xml " + ip + " 2>/dev/null"
+        cmd = "nmap --script pop3-capabilities.nse,pop3-enum-users.nse -p110 -oX temp.xml " + ip + " -Pn > /dev/null"
         os.system(cmd)
         #convert to markdown and add to notes file
         cmd = "xsltproc temp.xml -o temp.md"
