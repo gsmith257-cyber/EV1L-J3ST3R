@@ -4,7 +4,6 @@
  </div>
 <h2>An automated scanning, enumeration, and note taking tool</h2>
 <h2>Created by S1n1st3r</h2>
-<img src="https://komarev.com/ghpvc/?username=gsmith257-cyber&style=flat-square&color=blue" alt=""/>
 
 Meant to help easily go through Hack The Box machine and TryHackMe rooms and take good notes throughout the process.
 
