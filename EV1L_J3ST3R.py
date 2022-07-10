@@ -167,6 +167,7 @@ def main():
     #add exploit-db results to report for each device
     print("Running exploit-db search on active IPs")
     searchExploitDB(listOfServices, outputFile)
+    print("Completed successfully")
 
 # this function will validate a given IP address
 # and return True or False based on the validation result
