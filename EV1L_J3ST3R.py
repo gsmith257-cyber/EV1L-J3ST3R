@@ -6,6 +6,8 @@ from googlesearch import search
 import xml.etree.cElementTree as ET
 import ipaddress
 from pathlib import Path
+import re
+import argparse
 
 #todo
 #1: make it so SAMBA scan will run based on port numbers open, 139, 445
@@ -22,6 +24,7 @@ from pathlib import Path
 #8: add exploit-db results to report for each device
 #9: attempt inital access with stuff like anonymous login to ftp or samba
 
+stealth = None
 def main():
     #get user input
     #get ip or subnet to scan
@@ -39,17 +42,48 @@ def main():
     print("Created by: S1n1st3r")
 
     activeIPs = []                                                   
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-t", "--type",
+                    dest="type",
+                    help="The type of scan to run, 1 for subnet, 2 for single IP",
+                    action='store',
+                    required=True)
+    parser.add_argument("-i", "--ip",
+                    dest="ip",
+                    help="ip address/subnet (without the /24) to scan",
+                    action='store',
+                    required=True)
+    parser.add_argument("-o", "--output",
+                    dest="output",
+                    help="output file name",
+                    action='store')
+    parser.add_argument("-s", "--stealth",
+                    dest="stealth",
+                    help="enable stealth mode",
+                    action='store_true')
+    parser.add_argument("-a", "--arp",
+                    dest="arp",
+                    help="enable arp scan instead of ping sweep",
+                    action='store_true')
+    
+    args = parser.parse_args()
+    stealth = args.stealth
     choice = input("Enter 1 for subnet scan or 2 for single IP: ")
 
-    if choice == "1":
-        userInput = input("Enter subnet to scan, exclude the /24: ")
+    if args.type == "1":
+        userInput = args.ip
         if ip_is_valid(userInput):
-            activeIPs = scanSubnet(userInput)
+            print("IP is valid")
+            if args.arp:
+                print("ARP scan enabled")
+                activeIPs = scanARP()
+            else:
+                activeIPs = scanSubnet(userInput)
         else:
             print("Invalid IP address!")
             quit()
-    elif choice == "2":
-        userInput = input("Enter IP to scan: ")
+    elif args.type == "2":
+        userInput = args.ip
         if ip_is_valid(userInput):
             if ping_ip(userInput):
                 print("IP is active")
@@ -65,7 +99,12 @@ def main():
         return
 
     #create md file for report
-    notesFile = open("notes.md", "w")
+    #if output is not specified, use default name
+    if args.output is None:
+        outputFile = "report.md"
+    else:
+        outputFile = args.output
+    notesFile = open(outputFile, "w")
     notesFile.write("<h1>Notes for " + userInput + " scan </h1>\n<br>")
     notesFile.close()
     #add active ones to section of report
@@ -165,6 +204,18 @@ def scanSubnet(subnet):
             print("ping to", address, "failed!")
     return list
 
+def scanARP():
+    results = []
+    output = os.popen('arp -a').read()
+    #get just the ip address from the arp scan output
+    output = output.split("\n")
+    for line in output:
+        if "incomplete" in line:
+            output.remove(line)
+        results += re.match("(?:[0-9]{1,3}\.){3}[0-9]{1,3}", line)
+    print(results) #remove this
+    return results
+
 def getServiceListOutput():
     servicesList = []
     tree = ET.parse('temp.xml')
@@ -227,8 +278,12 @@ def nmapScan(ipList):
     #nmap scan all active IPs
     #add nmap scans in md format to md report, create a section for each IP
     print("Nmap scan started")
+    
     for ip in ipList:
-        cmd = "nmap -sV -sC -T4 -oX temp.xml " + ip + " -Pn > /dev/null"
+        if stealth:
+            cmd = "nmap -sS -P0 -T polite" + ip + " -Pn > /dev/null"
+        else:
+            cmd = "nmap -sV -sC -T4 -oX temp.xml " + ip + " -Pn > /dev/null"
         os.system(cmd)
         print("Nmap scan for " + ip + " complete")    
         #convert to markdown and add to notes file
