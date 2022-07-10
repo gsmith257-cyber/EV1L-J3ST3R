@@ -24,8 +24,6 @@ import argparse
 #8: add exploit-db results to report for each device
 #9: attempt inital access with stuff like anonymous login to ftp or samba
 
-stealth = None
-outputFile = None
 def main():
     #get user input
     #get ip or subnet to scan
@@ -115,7 +113,7 @@ def main():
     notesFile.close()
     #nmap scan all active IPs
     #add nmap scans in md format to md report, create a section for each IP
-    listOfServices = nmapScan(activeIPs)
+    listOfServices = nmapScan(activeIPs, outputFile, stealth)
     listOfPorts = getPorts()
     os.remove("temp.xml")
     #attempt inital access with stuff like anonymous login to ftp or samba
@@ -124,51 +122,51 @@ def main():
         #if listOfServices contains smb, try smb login
         if "smb" in service or "SMB" in service or '139' in listOfPorts or '445' in listOfPorts:
             for ip in activeIPs:
-                SAMBAcheck(ip)
+                SAMBAcheck(ip, outputFile)
         #if listOfServices contains ftp, try ftp login
         if "ftp" in service or "FTP" in service:
             for ip in activeIPs:
-                ftpCheck(ip)
+                ftpCheck(ip, outputFile)
         #if listOfServices contains http, try http check
         if "http" in service or "HTTP" in service or '80' in listOfPorts or '443' in listOfPorts or '8080' in listOfPorts:
             for ip in activeIPs:
-                httpCheck(ip, listOfPorts)
+                httpCheck(ip, listOfPorts, outputFile)
         #if listOfServices contains ssh, try ssh check
         if "ssh" in service or "SSH" in service:
             for ip in activeIPs:
-                sshCheck(ip)
+                sshCheck(ip, outputFile)
         #if listOfServices contains telnet, try telnet check
         if "telnet" in service or "TELNET" in service:
             for ip in activeIPs:
-                telnetCheck(ip)
+                telnetCheck(ip, outputFile)
         #if listOfServices contains snmp, try snmp check
         if "snmp" in service or "SNMP" in service:
             for ip in activeIPs:
-                snmpCheck(ip)
+                snmpCheck(ip, outputFile)
         #if mysql is in listOfServices, try mysql check
         if "mysql" in service or "MYSQL" in service:
             for ip in activeIPs:
-                mysqlCheck(ip)
+                mysqlCheck(ip, outputFile)
         #if listOfServices contains icmp, try icmp check
         if "icmp" in service or "ICMP" in service:
             for ip in activeIPs:
-                icmpCheck(ip)
+                icmpCheck(ip, outputFile)
         #if listOfServices contains dns, try dns check
         if "dns" in service or "DNS" in service:
             for ip in activeIPs:
-                dnsCheck(ip)
+                dnsCheck(ip, outputFile)
         #if listOfServices contains smtp, try smtp check
         if "smtp" in service or "SMTP" in service:
             for ip in activeIPs:
-                smtpCheck(ip)
+                smtpCheck(ip, outputFile)
         #if listOfServices contains pop3, try pop3 check
         if "pop3" in service or "POP3" in service:
             for ip in activeIPs:
-                pop3Check(ip)
+                pop3Check(ip, outputFile)
     #do exploit db search for all services and version numbers running on machines
     #add exploit-db results to report for each device
     print("Running exploit-db search on active IPs")
-    searchExploitDB(listOfServices)
+    searchExploitDB(listOfServices, outputFile)
 
 # this function will validate a given IP address
 # and return True or False based on the validation result
@@ -276,7 +274,7 @@ def cleanMDfile():
     file2.close()
         
 
-def nmapScan(ipList):
+def nmapScan(ipList, outputFile, stealth):
     #nmap scan all active IPs
     #add nmap scans in md format to md report, create a section for each IP
     print("Nmap scan started")
@@ -310,7 +308,7 @@ class ContentCallback:
     def content_callback(self, buf):
         self.contents = self.contents + str(buf)
 
-def searchExploitDB(services):
+def searchExploitDB(services, outputFile):
     #do exploit db search for all services and version numbers running on machines
     notesFile = open(outputFile, "a")
     notesFile.write("<br>\n<h2>Exploits found: </h2>")
@@ -341,7 +339,7 @@ def searchExploitDB(services):
             print("Error connecting to ExploitDB")
             # print(e)
     
-def SAMBAcheck(ip):
+def SAMBAcheck(ip, outputFile):
     #check if samba is running on machine
     if ping_ip(ip):
         cmd = "nmap --script smb-enum-shares.nse,smb-os-discovery.nse,smb-vuln-conficker.nse,smb-vuln-cve2009-3103.nse,smb-vuln-cve-2017-7494.nse,smb-vuln-ms06-025.nse,smb-vuln-ms07-029.nse,smb-vuln-ms08-067.nse,smb-vuln-ms10-054.nse,smb-vuln-ms10-061.nse,smb-vuln-ms17-010.nse,smb-vuln-regsvc-dos.nse,smb-vuln-webexec.nse -p445 -oX temp.xml " + ip + " -Pn > /dev/null"
@@ -360,7 +358,7 @@ def SAMBAcheck(ip):
         os.remove("temp.xml")
         os.remove("temp.md")
 
-def ftpCheck(ip):
+def ftpCheck(ip, outputFile):
     #check if ftp is running on machine
     if ping_ip(ip):
         cmd = "nmap --script ftp-anon.nse,ftp-banner.nse,ftp-proftpd-backdoor.nse,ftp-vsftpd-backdoor.nse -p21 -oX temp.xml " + ip + " -Pn > /dev/null"
@@ -379,7 +377,7 @@ def ftpCheck(ip):
         os.remove("temp.xml")
         os.remove("temp.md")
 
-def httpCheck(ip, ports):
+def httpCheck(ip, ports, outputFile):
     #check if http is running on machine
     if ping_ip(ip):
         for port in ports:
@@ -404,7 +402,7 @@ def httpCheck(ip, ports):
                 os.remove("temp.xml")
                 os.remove("temp.md")
 
-def sshCheck(ip):
+def sshCheck(ip, outputFile):
     #check if ssh is running on machine
     if ping_ip(ip):
         cmd = "nmap --script ssh2-enum-algos.nse,ssh-hostkey.nse -p22 -oX temp.xml " + ip + " -Pn > /dev/null"
@@ -423,7 +421,7 @@ def sshCheck(ip):
         os.remove("temp.xml")
         os.remove("temp.md")
 
-def telnetCheck(ip):
+def telnetCheck(ip, outputFile):
     #check if telnet is running on machine
     if ping_ip(ip):
         cmd = "nmap --script telnet-encryption.nse -p23 -oX temp.xml " + ip + " -Pn > /dev/null"
@@ -442,7 +440,7 @@ def telnetCheck(ip):
         os.remove("temp.xml")
         os.remove("temp.md")
 
-def snmpCheck(ip):
+def snmpCheck(ip, outputFile):
     #check if snmp is running on machine
     if ping_ip(ip):
         cmd = "nmap --script snmp-netstat.nse,snmp-processes.nse,snmp-sysdescr.nse,snmp-win32-services.nse -p161 -oX temp.xml " + ip + " -Pn > /dev/null"
@@ -461,7 +459,7 @@ def snmpCheck(ip):
         os.remove("temp.xml")
         os.remove("temp.md")
 
-def mysqlCheck(ip):
+def mysqlCheck(ip, outputFile):
     #check if mysql is running on machine
     if ping_ip(ip):
         cmd = "nmap --script mysql-enum.nse -p3306 -oX temp.xml " + ip + " -Pn > /dev/null"
@@ -480,7 +478,7 @@ def mysqlCheck(ip):
         os.remove("temp.xml")
         os.remove("temp.md")
 
-def icmpCheck(ip):
+def icmpCheck(ip, outputFile):
     #check if icmp is running on machine
     if ping_ip(ip):
         cmd = "nmap --script icmp-echo.nse -p icmp -oX temp.xml " + ip + " -Pn > /dev/null"
@@ -499,7 +497,7 @@ def icmpCheck(ip):
         os.remove("temp.xml")
         os.remove("temp.md")
 
-def smtpCheck(ip):
+def smtpCheck(ip, outputFile):
     #check if smtp is running on machine
     if ping_ip(ip):
         cmd = "nmap --script smtp-commands.nse,smtp-enum-users.nse,smtp-open-relay.nse -p25 -oX temp.xml " + ip + " -Pn > /dev/null"
@@ -518,7 +516,7 @@ def smtpCheck(ip):
         os.remove("temp.xml")
         os.remove("temp.md")
 
-def dnsCheck(ip):
+def dnsCheck(ip, outputFile):
     #check if dns is running on machine
     if ping_ip(ip):
         cmd = "nmap --script dns-recursion.nse,dns-zone-transfer.nse -p53 -oX temp.xml " + ip + " -Pn > /dev/null"
@@ -537,7 +535,7 @@ def dnsCheck(ip):
         os.remove("temp.xml")
         os.remove("temp.md")
 
-def pop3Check(ip):
+def pop3Check(ip, outputFile):
     #check if pop3 is running on machine
     if ping_ip(ip):
         cmd = "nmap --script pop3-capabilities.nse,pop3-enum-users.nse -p110 -oX temp.xml " + ip + " -Pn > /dev/null"
