@@ -207,12 +207,11 @@ def scanSubnet(subnet):
 
 def scanARP():
     results = []
-    output = os.popen('arp -a > temp').read()
+    os.system('arp -a > temp')
     #get just the ip address from the arp scan output
+    output = open("temp", "r")
     for line in output:
-        if "incomplete" in line:
-            output.remove(line)
-        results += re.match("(?:[0-9]{1,3}\.){3}[0-9]{1,3}", line)
+        results.append(re.match("(?:[0-9]{1,3}\.){3}[0-9]{1,3}", line))
     print(results) #remove this
     return results
 
