@@ -282,7 +282,7 @@ def nmapScan(ipList, outputFile, stealth):
     
     for ip in ipList:
         if stealth:
-            cmd = "nmap -sS -P0 -T Polite" + ip + " -Pn > /dev/null"
+            cmd = "nmap -sS -P0 -T 2" + ip + " -Pn > /dev/null"
         else:
             cmd = "nmap -sV -sC -T4 -oX temp.xml " + ip + " -Pn > /dev/null"
         os.system(cmd)
