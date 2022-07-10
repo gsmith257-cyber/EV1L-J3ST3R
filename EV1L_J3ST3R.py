@@ -68,7 +68,6 @@ def main():
     
     args = parser.parse_args()
     stealth = args.stealth
-    choice = input("Enter 1 for subnet scan or 2 for single IP: ")
 
     if args.type == "1":
         userInput = args.ip
