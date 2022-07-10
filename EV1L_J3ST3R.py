@@ -25,6 +25,7 @@ import argparse
 #9: attempt inital access with stuff like anonymous login to ftp or samba
 
 stealth = None
+outputFile = None
 def main():
     #get user input
     #get ip or subnet to scan
@@ -100,14 +101,14 @@ def main():
     #create md file for report
     #if output is not specified, use default name
     if args.output is None:
-        outputFile = "report.md"
+        outputFile = "notes.md"
     else:
         outputFile = args.output
     notesFile = open(outputFile, "w")
     notesFile.write("<h1>Notes for " + userInput + " scan </h1>\n<br>")
     notesFile.close()
     #add active ones to section of report
-    notesFile = open("notes.md", "a")
+    notesFile = open(outputFile, "a")
     notesFile.write("\n<h2>Active IPs</h2>\n<br>")
     for ip in activeIPs:
         notesFile.write(ip + "\n<br>")
@@ -118,6 +119,7 @@ def main():
     listOfPorts = getPorts()
     os.remove("temp.xml")
     #attempt inital access with stuff like anonymous login to ftp or samba
+    print("Running service enumeration on active IPs")
     for service in listOfServices:
         #if listOfServices contains smb, try smb login
         if "smb" in service or "SMB" in service or '139' in listOfPorts or '445' in listOfPorts:
@@ -165,6 +167,7 @@ def main():
                 pop3Check(ip)
     #do exploit db search for all services and version numbers running on machines
     #add exploit-db results to report for each device
+    print("Running exploit-db search on active IPs")
     searchExploitDB(listOfServices)
 
 # this function will validate a given IP address
@@ -289,7 +292,7 @@ def nmapScan(ipList):
         cmd = "xsltproc temp.xml -o temp.md"
         os.system(cmd)
         cleanMDfile()
-        notesFile = open("notes.md", "a")
+        notesFile = open(outputFile, "a")
         notesFile.write("\n<h2>" + ip + "</h2>\n")
         with open("temp.md") as f:
             for line in f:
@@ -309,7 +312,7 @@ class ContentCallback:
 
 def searchExploitDB(services):
     #do exploit db search for all services and version numbers running on machines
-    notesFile = open("notes.md", "a")
+    notesFile = open(outputFile, "a")
     notesFile.write("<br>\n<h2>Exploits found: </h2>")
     notesFile.close()
     for service in services:
@@ -328,7 +331,7 @@ def searchExploitDB(services):
                     desc = soup.find("meta", property="og:title")
                     publish = soup.find("meta", property="article:published_time")
                     #write results to md file
-                    notesFile = open("notes.md", "a")
+                    notesFile = open(outputFile, "a")
                     notesFile.write("<br>\n<h3>" + desc.get('content') + "</h3><br>\n")
                     notesFile.write("\n" + publish.get('content') + "<br>\n")
                     notesFile.write("\n" + data + "<br>\n")
@@ -347,7 +350,7 @@ def SAMBAcheck(ip):
         cmd = "xsltproc temp.xml -o temp.md"
         os.system(cmd)
         cleanMDfile()
-        notesFile = open("notes.md", "a")
+        notesFile = open(outputFile, "a")
         with open("temp.md") as f:
             notesFile.write("\n<h2>Samba enumeration: </h2><br>\n")
             for line in f:
@@ -366,7 +369,7 @@ def ftpCheck(ip):
         cmd = "xsltproc temp.xml -o temp.md"
         os.system(cmd)
         cleanMDfile()
-        notesFile = open("notes.md", "a")
+        notesFile = open(outputFile, "a")
         with open("temp.md") as f:
             notesFile.write("\n<h2>FTP enumeration: </h2><br>\n")
             for line in f:
@@ -391,7 +394,7 @@ def httpCheck(ip, ports):
                         notesFile.write(line)
                 notesFile.close()
                 cleanMDfile()
-                notesFile = open("notes.md", "a")
+                notesFile = open(outputFile, "a")
                 with open("temp.md") as f:
                     notesFile.write("\n")
                     for line in f:
@@ -410,7 +413,7 @@ def sshCheck(ip):
         cmd = "xsltproc temp.xml -o temp.md"
         os.system(cmd)
         cleanMDfile()
-        notesFile = open("notes.md", "a")
+        notesFile = open(outputFile, "a")
         with open("temp.md") as f:
             notesFile.write("\n<h2>SSH enumeration: </h2><br>\n")
             for line in f:
@@ -429,7 +432,7 @@ def telnetCheck(ip):
         cmd = "xsltproc temp.xml -o temp.md"
         os.system(cmd)
         cleanMDfile()
-        notesFile = open("notes.md", "a")
+        notesFile = open(outputFile, "a")
         with open("temp.md") as f:
             notesFile.write("\n<h2>Telnet enumeration: </h2><br>\n")
             for line in f:
@@ -448,7 +451,7 @@ def snmpCheck(ip):
         cmd = "xsltproc temp.xml -o temp.md"
         os.system(cmd)
         cleanMDfile()
-        notesFile = open("notes.md", "a")
+        notesFile = open(outputFile, "a")
         with open("temp.md") as f:
             notesFile.write("\n<h2>SNMP enumeration: </h2><br>\n")
             for line in f:
@@ -467,7 +470,7 @@ def mysqlCheck(ip):
         cmd = "xsltproc temp.xml -o temp.md"
         os.system(cmd)
         cleanMDfile()
-        notesFile = open("notes.md", "a")
+        notesFile = open(outputFile, "a")
         with open("temp.md") as f:
             notesFile.write("\n<h2>MySQL enumeration: </h2><br>\n")
             for line in f:
@@ -486,7 +489,7 @@ def icmpCheck(ip):
         cmd = "xsltproc temp.xml -o temp.md"
         os.system(cmd)
         cleanMDfile()
-        notesFile = open("notes.md", "a")
+        notesFile = open(outputFile, "a")
         with open("temp.md") as f:
             notesFile.write("\n<h2>ICMP enumeration: </h2><br>\n")
             for line in f:
@@ -505,7 +508,7 @@ def smtpCheck(ip):
         cmd = "xsltproc temp.xml -o temp.md"
         os.system(cmd)
         cleanMDfile()
-        notesFile = open("notes.md", "a")
+        notesFile = open(outputFile, "a")
         with open("temp.md") as f:
             notesFile.write("\n<h2>SMTP enumeration: </h2><br>\n")
             for line in f:
@@ -524,7 +527,7 @@ def dnsCheck(ip):
         cmd = "xsltproc temp.xml -o temp.md"
         os.system(cmd)
         cleanMDfile()
-        notesFile = open("notes.md", "a")
+        notesFile = open(outputFile, "a")
         with open("temp.md") as f:
             notesFile.write("\n<h2>DNS enumeration: </h2><br>\n")
             for line in f:
@@ -543,7 +546,7 @@ def pop3Check(ip):
         cmd = "xsltproc temp.xml -o temp.md"
         os.system(cmd)
         cleanMDfile()
-        notesFile = open("notes.md", "a")
+        notesFile = open(outputFile, "a")
         with open("temp.md") as f:
             notesFile.write("\n<h2>POP3 enumeration: </h2><br>\n")
             for line in f:
