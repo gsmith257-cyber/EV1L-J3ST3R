@@ -207,9 +207,8 @@ def scanSubnet(subnet):
 
 def scanARP():
     results = []
-    output = os.popen('arp -a').read()
+    output = os.popen('arp -a > temp').read()
     #get just the ip address from the arp scan output
-    output = output.split("\n")
     for line in output:
         if "incomplete" in line:
             output.remove(line)
@@ -282,7 +281,7 @@ def nmapScan(ipList, outputFile, stealth):
     
     for ip in ipList:
         if stealth:
-            cmd = "nmap -sS -P0 -T2 -oX temp.xml" + ip + " -Pn > /dev/null"
+            cmd = "nmap -sS -P0 -T2 -oX temp.xml " + ip + " -Pn > /dev/null"
         else:
             cmd = "nmap -sV -sC -T4 -oX temp.xml " + ip + " -Pn > /dev/null"
         os.system(cmd)
