@@ -209,9 +209,12 @@ def scanARP():
     results = []
     os.system('arp -a > temp')
     #get just the ip address from the arp scan output
-    output = open("temp", "r")
-    for line in output:
-        results.append(re.match("(?:[0-9]{1,3}\.){3}[0-9]{1,3}", line))
+    pattern = re.compile("(?:[0-9]{1,3}\.){3}[0-9]{1,3}")
+
+    for i, line in enumerate(open('temp')):
+        for match in re.finditer(pattern, line):
+            results.append(match.group())
+
     print(results) #remove this
     return results
 
