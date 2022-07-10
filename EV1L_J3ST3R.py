@@ -58,7 +58,7 @@ def main():
                     action='store')
     parser.add_argument("-s", "--stealth",
                     dest="stealth",
-                    help="enable stealth mode",
+                    help="enable stealth mode, requires root",
                     action='store_true')
     parser.add_argument("-a", "--arp",
                     dest="arp",
@@ -282,7 +282,8 @@ def nmapScan(ipList, outputFile, stealth):
     
     for ip in ipList:
         if stealth:
-            cmd = "nmap -sS -P0 -T 2" + ip + " -Pn > /dev/null"
+            print (ip)
+            cmd = "nmap -sS -P0 -T 2 -oX temp.xml" + ip + " -Pn > /dev/null"
         else:
             cmd = "nmap -sV -sC -T4 -oX temp.xml " + ip + " -Pn > /dev/null"
         os.system(cmd)
