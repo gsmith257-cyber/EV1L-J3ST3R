@@ -11,7 +11,7 @@
 <h1>Nmap Scan Report - Scanned at Sat Apr 23 18:40:06 2022</h1>
 <ul id="menu">
 <li><a href="#scansummary">Scan Summary</a></li>
-<li> | <a href="#host_10_10_11_152" class="up">timelapse.htb (10.10.11.152)
+<li> | <a href="#host_10_10_11_152" class="up">*name* (10.10.11.152)
                   </a>
 </li>
 </ul>
@@ -23,7 +23,7 @@
     Verbosity: 0; Debug level 0</p>
 <p>Nmap done at Sat Apr 23 18:41:12 2022; 1 IP address (1 host up) scanned in 65.63 seconds</p>
 <hr class="print_only">
-<a name="host_10_10_11_152"></a><h2 class="up">10.10.11.152 / timelapse.htb<span class="print_only">(online)</span>
+<a name="host_10_10_11_152"></a><h2 class="up">10.10.11.152 / *name*<span class="print_only">(online)</span>
 </h2>
 <div id="hostblock_10.10.11.152" class="unhidden">
 <h3>Address</h3>
@@ -33,7 +33,7 @@
 
 <h3>Hostnames</h3>
 <ul>
-<li>timelapse.htb (PTR)</li>
+<li>*name* (PTR)</li>
 </ul>
 <h3>Ports</h3>
 <p>The 989 ports scanned but not shown below are in state: <b>filtered</b></p>
@@ -56,111 +56,111 @@
 <td>53</td>
 <td>tcp</td>
 <td>open</td>
-<td>domain </td>
+<td>domain </td>
 <td>syn-ack</td>
-<td>Simple DNS Plus </td>
-<td> </td>
-<td> </td>
+<td>Simple DNS Plus </td>
+<td> </td>
+<td> </td>
 </tr>
 <tr class="open">
 <td>88</td>
 <td>tcp</td>
 <td>open</td>
-<td>kerberos-sec </td>
+<td>kerberos-sec </td>
 <td>syn-ack</td>
-<td>Microsoft Windows Kerberos </td>
-<td> </td>
-<td>server time: 2022-04-24 01:40:18Z </td>
+<td>Microsoft Windows Kerberos </td>
+<td> </td>
+<td>server time: 2022-04-24 01:40:18Z </td>
 </tr>
 <tr class="open">
 <td>135</td>
 <td>tcp</td>
 <td>open</td>
-<td>msrpc </td>
+<td>msrpc </td>
 <td>syn-ack</td>
-<td>Microsoft Windows RPC </td>
-<td> </td>
-<td> </td>
+<td>Microsoft Windows RPC </td>
+<td> </td>
+<td> </td>
 </tr>
 <tr class="open">
 <td>139</td>
 <td>tcp</td>
 <td>open</td>
-<td>netbios-ssn </td>
+<td>netbios-ssn </td>
 <td>syn-ack</td>
-<td>Microsoft Windows netbios-ssn </td>
-<td> </td>
-<td> </td>
+<td>Microsoft Windows netbios-ssn </td>
+<td> </td>
+<td> </td>
 </tr>
 <tr class="open">
 <td>389</td>
 <td>tcp</td>
 <td>open</td>
-<td>ldap </td>
+<td>ldap </td>
 <td>syn-ack</td>
-<td>Microsoft Windows Active Directory LDAP </td>
-<td> </td>
-<td>Domain: timelapse.htb0., Site: Default-First-Site-Name </td>
+<td>Microsoft Windows Active Directory LDAP </td>
+<td> </td>
+<td>Domain: *name*0., Site: Default-First-Site-Name </td>
 </tr>
 <tr class="open">
 <td>445</td>
 <td>tcp</td>
 <td>open</td>
-<td>microsoft-ds </td>
+<td>microsoft-ds </td>
 <td>syn-ack</td>
-<td> </td>
-<td> </td>
-<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
 </tr>
 <tr class="open">
 <td>464</td>
 <td>tcp</td>
 <td>open</td>
-<td>kpasswd5 </td>
+<td>kpasswd5 </td>
 <td>syn-ack</td>
-<td> </td>
-<td> </td>
-<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
 </tr>
 <tr class="open">
 <td>593</td>
 <td>tcp</td>
 <td>open</td>
-<td>ncacn_http </td>
+<td>ncacn_http </td>
 <td>syn-ack</td>
-<td>Microsoft Windows RPC over HTTP </td>
-<td>1.0 </td>
-<td> </td>
+<td>Microsoft Windows RPC over HTTP </td>
+<td>1.0 </td>
+<td> </td>
 </tr>
 <tr class="open">
 <td>636</td>
 <td>tcp</td>
 <td>open</td>
-<td>tcpwrapped </td>
+<td>tcpwrapped </td>
 <td>syn-ack</td>
-<td> </td>
-<td> </td>
-<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
 </tr>
 <tr class="open">
 <td>3268</td>
 <td>tcp</td>
 <td>open</td>
-<td>ldap </td>
+<td>ldap </td>
 <td>syn-ack</td>
-<td>Microsoft Windows Active Directory LDAP </td>
-<td> </td>
-<td>Domain: timelapse.htb0., Site: Default-First-Site-Name </td>
+<td>Microsoft Windows Active Directory LDAP </td>
+<td> </td>
+<td>Domain: *name*0., Site: Default-First-Site-Name </td>
 </tr>
 <tr class="open">
 <td>3269</td>
 <td>tcp</td>
 <td>open</td>
-<td>tcpwrapped </td>
+<td>tcpwrapped </td>
 <td>syn-ack</td>
-<td> </td>
-<td> </td>
-<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
 </tr>
 </table>
 <h3>Host Script Output</h3>
@@ -170,20 +170,20 @@
 <td>Output</td>
 </tr>
 <tr class="script">
-<td>clock-skew </td>
-<td><pre>7h59m51s </pre></td>
+<td>clock-skew </td>
+<td><pre>7h59m51s </pre></td>
 </tr>
 <tr class="script">
-<td>smb2-security-mode </td>
+<td>smb2-security-mode </td>
 <td><pre>
   2.02: 
-    Message signing enabled and required </pre></td>
+    Message signing enabled and required </pre></td>
 </tr>
 <tr class="script">
-<td>smb2-time </td>
+<td>smb2-time </td>
 <td><pre>
   date: 2022-04-24T01:40:23
-  start_date: N/A </pre></td>
+  start_date: N/A </pre></td>
 </tr>
 </table>
 <br><a href="javascript:toggle('metrics_10.10.11.152');">
@@ -213,7 +213,7 @@
 <h1>Nmap Scan Report - Scanned at Sat Apr 23 18:41:13 2022</h1>
 <ul id="menu">
 <li><a href="#scansummary">Scan Summary</a></li>
-<li> | <a href="#host_10_10_11_152" class="up">timelapse.htb (10.10.11.152)
+<li> | <a href="#host_10_10_11_152" class="up">*name* (10.10.11.152)
                   </a>
 </li>
 </ul>
@@ -225,7 +225,7 @@
     Verbosity: 0; Debug level 0</p>
 <p>Nmap done at Sat Apr 23 18:41:29 2022; 1 IP address (1 host up) scanned in 16.19 seconds</p>
 <hr class="print_only">
-<a name="host_10_10_11_152"></a><h2 class="up">10.10.11.152 / timelapse.htb<span class="print_only">(online)</span>
+<a name="host_10_10_11_152"></a><h2 class="up">10.10.11.152 / *name*<span class="print_only">(online)</span>
 </h2>
 <div id="hostblock_10.10.11.152" class="unhidden">
 <h3>Address</h3>
@@ -235,7 +235,7 @@
 
 <h3>Hostnames</h3>
 <ul>
-<li>timelapse.htb (PTR)</li>
+<li>*name* (PTR)</li>
 </ul>
 <h3>Ports</h3>
 <table id="porttable_10.10.11.152" cellspacing="1">
@@ -254,11 +254,11 @@
 <td>445</td>
 <td>tcp</td>
 <td>open</td>
-<td>microsoft-ds </td>
+<td>microsoft-ds </td>
 <td>syn-ack</td>
-<td> </td>
-<td> </td>
-<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
 </tr>
 </table>
 <h3>Host Script Output</h3>
@@ -268,12 +268,12 @@
 <td>Output</td>
 </tr>
 <tr class="script">
-<td>smb-vuln-ms10-054 </td>
-<td><pre>false </pre></td>
+<td>smb-vuln-ms10-054 </td>
+<td><pre>false </pre></td>
 </tr>
 <tr class="script">
-<td>smb-vuln-ms10-061 </td>
-<td><pre>Could not negotiate a connection:SMB: Failed to receive bytes: ERROR </pre></td>
+<td>smb-vuln-ms10-061 </td>
+<td><pre>Could not negotiate a connection:SMB: Failed to receive bytes: ERROR </pre></td>
 </tr>
 </table>
 <br><a href="javascript:toggle('metrics_10.10.11.152');">
